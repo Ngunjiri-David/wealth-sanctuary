@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#0F1012] text-[#E5E3DF] selection:bg-[#C5A059]/30 selection:text-[#F9F8F6]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Sanctuary & Control Room — Kalaja & Ngunjiri</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        alabaster: '#F9F8F6',
+                        ink: '#0F1012',
+                        charcoal: '#1A1C1E',
+                        card: '#16181A',
+                        cardHover: '#1E2124',
+                        bronze: '#C5A059',
+                        bronzeMuted: '#9E7D3B',
+                        bronzeSoft: 'rgba(197, 160, 89, 0.12)',
+                        sage: '#8A9A86',
+                        sageSoft: 'rgba(138, 154, 134, 0.15)',
+                        borderMuted: '#2A2D32'
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom scrollbars & quiet luxury aesthetics */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F1012;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2D32;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C5A059;
+        }
+        .touch-active {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease;
+        }
+        .touch-active:active {
+            transform: scale(0.97);
+            opacity: 0.85;
+        }
+        .glass-panel {
+            background: rgba(22, 24, 26, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #F9F8F6 0%, #C5A059 50%, #9E7D3B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tab-indicator {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        /* Mobile tap highlight fix */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body class="h-full w-full font-sans antialiased text-sm overflow-x-hidden flex flex-col justify-between bg-[#0F1012]">
+
+    <!-- APP HEADER / MONOGRAM -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-borderMuted px-5 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-full border border-bronze/40 flex items-center justify-center bg-bronzeSoft text-bronze font-serif text-lg font-medium tracking-wider">
+                K&N
+            </div>
+            <div>
+                <h1 class="font-serif text-base tracking-wide text-alabaster font-medium leading-none">
+                    KALAJA <span class="text-bronze font-light">&</span> NGUNJIRI
+                </h1>
+                <p class="text-[10px] text-gray-400 tracking-widest uppercase mt-0.5">Sanctuary & Artifact</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-2">
+            <!-- Data Snapshot Modal Trigger -->
+            <button onclick="toggleDataModal(true)" class="p-2.5 rounded-full text-gray-400 hover:text-bronze hover:bg-white/5 touch-active" title="Data Backup / Export">
+                <i data-lucide="database" class="w-4 h-4"></i>
+            </button>
+            <button onclick="resetToDefaults()" class="p-2.5 rounded-full text-gray-400 hover:text-red-400 hover:bg-white/5 touch-active" title="Reset All Data">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main id="mainContainer" class="flex-1 overflow-y-auto px-4 py-6 max-w-3xl mx-auto w-full pb-28">
+
+        <!-- VIEW 1: CONTROL ROOM (TEMPORARY - MAY 2027) -->
+        <div id="controlRoomView" class="space-y-8 animate-fadeIn">
+            
+            <!-- Hero Dashboard Banner -->
+            <section class="glass-panel rounded-2xl p-6 relative overflow-hidden border border-bronze/20">
+                <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-bronze/5 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="inline-block px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest bg-bronzeSoft text-bronze border border-bronze/30 mb-2 font-medium">
+                            Temporary Control Room
+                        </span>
+                        <h2 class="text-2xl font-serif text-alabaster tracking-wide">The Wedding Masterplan</h2>
+                        <p class="text-xs text-gray-400 mt-0.5">Target Window: May 2027 • 125 Honored Guests</p>
+                    </div>
+                    <div class="text-right">
+                        <span id="countdownDays" class="text-3xl font-serif text-bronze font-light block leading-none">--</span>
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider">Days Remaining</span>
+                    </div>
+                </div>
+
+                <!-- Core KPIs -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-5 border-t border-white/5">
+                    <div class="bg-charcoal/60 rounded-xl p-3 border border-white/5">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider block">Total Ceiling</span>
+                        <span class="text-base font-serif text-alabaster mt-1 block">450,000 KES</span>
+                    </div>
+                    <div class="bg-charcoal/60 rounded-xl p-3 border border-white/5">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider block">Allocated</span>
+                        <span id="kpiAllocated" class="text-base font-serif text-bronze mt-1 block">0 KES</span>
+                    </div>
+                    <div class="bg-charcoal/60 rounded-xl p-3 border border-white/5">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider block">Catering Rate</span>
+                        <span class="text-base font-serif text-alabaster mt-1 block">1,500 <span class="text-[10px] font-sans text-gray-400">/head</span></span>
+                    </div>
+                    <div class="bg-charcoal/60 rounded-xl p-3 border border-white/5">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider block">Risk Level</span>
+                        <span id="kpiRisk" class="text-base font-serif text-sage mt-1 block">Controlled</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic Interactive Catering & Headcount Calculator -->
+            <section class="glass-panel rounded-2xl p-5 border border-white/5 space-y-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-serif text-lg text-alabaster">Catering & Guest Scaler</h3>
+                        <p class="text-xs text-gray-400">Fixed rate of KES 1,500/head</p>
+                    </div>
+                    <div class="text-right">
+                        <span id="calcCateringTotal" class="text-lg font-serif text-bronze">187,500 KES</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <div class="flex justify-between text-xs text-gray-300">
+                        <span>Guest Count Ceiling:</span>
+                        <span id="guestCountVal" class="font-medium text-alabaster">125 Guests</span>
+                    </div>
+                    <input type="range" id="guestSlider" min="50" max="250" value="125" step="5"
+                        class="w-full h-1.5 bg-charcoal rounded-lg appearance-none cursor-pointer accent-bronze"
+                        oninput="updateCateringCalc(this.value)">
+                    <div class="flex justify-between text-[10px] text-gray-500">
+                        <span>50 guests (KES 75,000)</span>
+                        <span>125 baseline</span>
+                        <span>250 guests (KES 375,000)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Budget Architecture Tiers -->
+            <section class="space-y-4">
+                <div class="flex justify-between items-baseline">
+                    <h3 class="font-serif text-xl text-alabaster">Budget Architecture</h3>
+                    <span class="text-xs text-gray-400">450k KES Allocation Ceiling</span>
+                </div>
+
+                <!-- Tier 1: Essential -->
+                <div class="glass-panel rounded-2xl p-5 border border-white/5 space-y-3">
+                    <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-bronze"></span>
+                            <h4 class="font-medium text-alabaster">Essential Baseline</h4>
+                        </div>
+                        <span id="tierEssentialTotal" class="text-xs font-serif text-bronze">332,500 KES</span>
+                    </div>
+                    <div class="space-y-2" id="essentialItemsList">
+                        <!-- Dynamic render -->
+                    </div>
+                </div>
+
+                <!-- Tier 2: High-Value -->
+                <div class="glass-panel rounded-2xl p-5 border border-white/5 space-y-3">
+                    <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-sage"></span>
+                            <h4 class="font-medium text-alabaster">High-Value Experience</h4>
+                        </div>
+                        <span id="tierHighValueTotal" class="text-xs font-serif text-sage">110,000 KES</span>
+                    </div>
+                    <div class="space-y-2" id="highValueItemsList">
+                        <!-- Dynamic render -->
+                    </div>
+                </div>
+
+                <!-- Tier 3: Optional & Deferred -->
+                <div class="glass-panel rounded-2xl p-5 border border-white/5 space-y-3">
+                    <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+                            <h4 class="font-medium text-alabaster">Optional & Deferred</h4>
+                        </div>
+                        <span id="tierOptionalTotal" class="text-xs font-serif text-gray-400">35,000 KES</span>
+                    </div>
+                    <div class="space-y-2" id="optionalItemsList">
+                        <!-- Dynamic render -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Legal & Critical Path Checklist (Marriage Act 2014) -->
+            <section class="glass-panel rounded-2xl p-5 border border-white/5 space-y-4">
+                <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                    <div>
+                        <h3 class="font-serif text-xl text-alabaster">Legal & Critical Path Trigger Register</h3>
+                        <p class="text-xs text-gray-400">Marriage Act 2014 Compliance Protocols</p>
+                    </div>
+                    <i data-lucide="shield-check" class="w-5 h-5 text-bronze"></i>
+                </div>
+
+                <div class="space-y-3" id="legalTriggersList">
+                    <!-- Dynamic Legal Steps render -->
+                </div>
+            </section>
+
+            <!-- Risk & Contingency Register -->
+            <section class="glass-panel rounded-2xl p-5 border border-white/5 space-y-4">
+                <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                    <div>
+                        <h3 class="font-serif text-xl text-alabaster">Risk & Defense Register</h3>
+                        <p class="text-xs text-gray-400">Contingencies & Command Roles</p>
+                    </div>
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-sage"></i>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="riskGrid">
+                    <!-- Dynamic Risk Cards render -->
+                </div>
+            </section>
+
+            <!-- Vendor Directory & Decision Log -->
+            <section class="glass-panel rounded-2xl p-5 border border-white/5 space-y-4">
+                <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                    <h3 class="font-serif text-xl text-alabaster">Decision Log & Vendor Status</h3>
+                    <button onclick="addDecisionPrompt()" class="text-xs text-bronze border border-bronze/30 px-3 py-1.5 rounded-full hover:bg-bronzeSoft touch-active">
+                        + Add Decision
+                    </button>
+                </div>
+                <div class="space-y-3" id="decisionLogList">
+                    <!-- Dynamic decision log -->
+                </div>
+            </section>
+
+        </div>
+
+        <!-- VIEW 2: WEALTH TRACK (SANCTUARY - OVERARCHING VISION) -->
+        <div id="wealthTrackView" class="space-y-8 hidden animate-fadeIn">
+            
+            <!-- Wealth Sanctuary Header Banner -->
+            <section class="glass-panel rounded-2xl p-6 relative overflow-hidden border border-sage/30">
+                <div class="absolute -left-10 -top-10 w-44 h-44 bg-sage/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="inline-block px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest bg-sageSoft text-sage border border-sage/30 mb-2 font-medium">
+                            Overarching Sanctuary
+                        </span>
+                        <h2 class="text-2xl font-serif text-alabaster tracking-wide">Wealth & Generational Track</h2>
+                        <p class="text-xs text-gray-400 mt-0.5">Order of Operations • Covenant Cash Flow</p>
+                    </div>
+                    <div class="text-right">
+                        <span id="netWorthDisplay" class="text-2xl font-serif text-alabaster font-light block leading-none">0 KES</span>
+                        <span class="text-[10px] text-sage uppercase tracking-wider">Estimated Net Worth</span>
+                    </div>
+                </div>
+
+                <!-- Sub-KPI Metrics -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-5 border-t border-white/5">
+                    <div class="bg-charcoal/60 rounded-xl p-3 border border-white/5">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider block">Giving (Tithe 10%)</span>
+                        <span id="kpiGiving" class="text-sm font-serif text-bronze mt-1 block">0 KES</span>
+                    </div>
+                    <div class="bg-charcoal/60 rounded-xl p-3 border border-white/5">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider block">Investments (12%)</span>
+                        <span id="kpiInvestment" class="text-sm font-serif text-sage mt-1 block">0 KES</span>
+                    </div>
+                    <div class="bg-charcoal/60 rounded-xl p-3 border border-white/5">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider block">Debt Freedom Target</span>
+                        <span id="kpiDebtFree" class="text-sm font-serif text-alabaster mt-1 block">On Track</span>
+                    </div>
+                    <div class="bg-charcoal/60 rounded-xl p-3 border border-white/5">
+                        <span class="text-[10px] text-gray-400 uppercase tracking-wider block">Self-Care (Partner)</span>
+                        <span id="kpiSelfCare" class="text-sm font-serif text-gray-300 mt-1 block">3% / 3%</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Order of Operations Engine (Interactive Budget Allocator) -->
+            <section class="glass-panel rounded-2xl p-5 border border-white/5 space-y-5">
+                <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                    <div>
+                        <h3 class="font-serif text-xl text-alabaster">Household Income Waterfall</h3>
+                        <p class="text-xs text-gray-400">Input Gross Combined Monthly Income</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="number" id="monthlyIncomeInput" value="350000" step="5000" 
+                            class="bg-charcoal border border-borderMuted rounded-lg px-3 py-1 text-sm font-serif text-bronze w-36 text-right focus:outline-none focus:border-bronze"
+                            onchange="recalculateWaterfall(this.value)">
+                        <span class="text-xs text-gray-400">KES</span>
+                    </div>
+                </div>
+
+                <!-- Waterfall Visual Bars & Items -->
+                <div class="space-y-4" id="waterfallList">
+                    <!-- Dynamic rendering of 8 steps -->
+                </div>
+            </section>
+
+            <!-- Business P&L Allocator (For Entrepreneurial/Consulting Flow) -->
+            <section class="glass-panel rounded-2xl p-5 border border-white/5 space-y-4">
+                <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                    <div>
+                        <h3 class="font-serif text-xl text-alabaster">Business P&L Distribution</h3>
+                        <p class="text-xs text-gray-400">Automated Revenue Split (40/20/30/10)</p>
+                    </div>
+                    <i data-lucide="pie-chart" class="w-5 h-5 text-bronze"></i>
+                </div>
+
+                <div class="flex items-center space-x-3 mb-2">
+                    <label class="text-xs text-gray-300">Monthly Business Revenue:</label>
+                    <input type="number" id="bizRevenueInput" value="200000" step="10000" 
+                        class="bg-charcoal border border-borderMuted rounded-lg px-3 py-1 text-xs font-serif text-alabaster w-32 text-right focus:outline-none focus:border-bronze"
+                        oninput="recalculateBizSplit(this.value)">
+                    <span class="text-xs text-gray-400">KES</span>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="bizSplitGrid">
+                    <!-- Dynamic Biz Split rendering -->
+                </div>
+            </section>
+
+            <!-- Weekly Money Date Ritual Log -->
+            <section class="glass-panel rounded-2xl p-5 border border-white/5 space-y-5">
+                <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                    <div>
+                        <h3 class="font-serif text-xl text-alabaster">Weekly Money Date Ritual</h3>
+                        <p class="text-xs text-gray-400">15-Minute Sanctuary Check-In Journal</p>
+                    </div>
+                    <button onclick="openMoneyDateModal()" class="text-xs text-bronze bg-bronzeSoft border border-bronze/30 px-3 py-1.5 rounded-full hover:bg-bronze/20 touch-active">
+                        + New Entry
+                    </button>
+                </div>
+
+                <!-- Logs Feed -->
+                <div class="space-y-3" id="moneyDateLogs">
+                    <!-- Dynamic Money Date entries -->
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- BOTTOM FIXED TOUCH NAVIGATION -->
+    <nav class="fixed bottom-0 left-0 right-0 z-50 glass-panel border-t border-borderMuted px-6 py-3">
+        <div class="max-w-md mx-auto flex justify-around items-center relative">
+            
+            <button onclick="switchTab('control')" id="btnTabControl" class="flex flex-col items-center space-y-1 text-bronze touch-active transition-colors">
+                <i data-lucide="compass" class="w-5 h-5"></i>
+                <span class="text-[10px] tracking-wider uppercase font-medium">Control Room</span>
+            </button>
+
+            <div class="w-px h-6 bg-white/10"></div>
+
+            <button onclick="switchTab('wealth')" id="btnTabWealth" class="flex flex-col items-center space-y-1 text-gray-400 hover:text-alabaster touch-active transition-colors">
+                <i data-lucide="landmark" class="w-5 h-5"></i>
+                <span class="text-[10px] tracking-wider uppercase font-medium">Wealth Sanctuary</span>
+            </button>
+
+        </div>
+    </nav>
+
+    <!-- MODAL 1: NEW MONEY DATE ENTRY -->
+    <div id="moneyDateModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
+        <div class="glass-panel border border-white/10 w-full max-w-lg rounded-t-2xl sm:rounded-2xl p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <h3 class="font-serif text-xl text-alabaster">Record Money Date Ritual</h3>
+                <button onclick="closeMoneyDateModal()" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <form id="moneyDateForm" onsubmit="saveMoneyDate(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-gray-300 mb-1">Date</label>
+                    <input type="date" id="mdDate" required class="w-full bg-charcoal border border-borderMuted rounded-lg p-2.5 text-alabaster focus:outline-none focus:border-bronze">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Financial & Life Wins This Week</label>
+                    <textarea id="mdWins" rows="2" placeholder="What worked well? Shared victories..." class="w-full bg-charcoal border border-borderMuted rounded-lg p-2.5 text-alabaster focus:outline-none focus:border-bronze"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">What Felt Hard / Friction</label>
+                    <textarea id="mdHard" rows="2" placeholder="Unexpected expenses, anxieties, friction points..." class="w-full bg-charcoal border border-borderMuted rounded-lg p-2.5 text-alabaster focus:outline-none focus:border-bronze"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Decisions Made & Commitments Kept</label>
+                    <textarea id="mdDecisions" rows="2" placeholder="Decisions agreed upon..." class="w-full bg-charcoal border border-borderMuted rounded-lg p-2.5 text-alabaster focus:outline-none focus:border-bronze"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Gratitude Note</label>
+                    <input type="text" id="mdGratitude" placeholder="A word of gratitude for partner..." class="w-full bg-charcoal border border-borderMuted rounded-lg p-2.5 text-alabaster focus:outline-none focus:border-bronze">
+                </div>
+
+                <div class="pt-2 flex justify-end space-x-3">
+                    <button type="button" onclick="closeMoneyDateModal()" class="px-4 py-2 rounded-lg text-gray-400 hover:bg-white/5">Cancel</button>
+                    <button type="submit" class="px-5 py-2 rounded-lg bg-bronze text-ink font-medium hover:bg-bronzeMuted touch-active">Save Entry</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: DATA SNAPSHOT EXPORT / IMPORT -->
+    <div id="dataModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-panel border border-white/10 w-full max-w-md rounded-2xl p-6 space-y-5">
+            <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <h3 class="font-serif text-xl text-alabaster">Data Sovereignty & Backup</h3>
+                <button onclick="toggleDataModal(false)" class="text-gray-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            
+            <p class="text-xs text-gray-400 leading-relaxed">
+                All data is stored directly on this device in private LocalStorage. Export your JSON snapshot to back up or sync between both partners' Android Chrome browsers.
+            </p>
+
+            <div class="space-y-3">
+                <button onclick="exportDataJSON()" class="w-full py-2.5 rounded-xl border border-bronze/40 text-bronze hover:bg-bronzeSoft flex items-center justify-center space-x-2 text-xs font-medium touch-active">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    <span>Export Data Snapshot (.json)</span>
+                </button>
+
+                <div class="relative">
+                    <input type="file" id="importFileInput" accept=".json" onchange="importDataJSON(event)" class="hidden">
+                    <button onclick="document.getElementById('importFileInput').click()" class="w-full py-2.5 rounded-xl border border-borderMuted text-gray-300 hover:bg-white/5 flex items-center justify-center space-x-2 text-xs font-medium touch-active">
+                        <i data-lucide="upload" class="w-4 h-4"></i>
+                        <span>Import JSON Snapshot</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="pt-2 text-center">
+                <button onclick="toggleDataModal(false)" class="text-xs text-gray-500 hover:text-gray-300">Close Window</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- APPLICATION LOGIC & DATA PERSISTENCE SCRIPTS -->
+    <script>
+        // CORE STATE STORE WITH DEFAULTS
+        const DEFAULT_STATE = {
+            weddingDate: '2027-05-15',
+            guestCeiling: 125,
+            cateringRate: 1500,
+            budgetCeiling: 450000,
+            monthlyIncome: 350000,
+            bizRevenue: 200000,
+            
+            budgetArchitecture: {
+                essential: [
+                    { id: 'e1', name: 'Church Honorarium & Venue Fee', amount: 30000, paid: false },
+                    { id: 'e2', name: 'Registrar & Legal Fees', amount: 15000, paid: false },
+                    { id: 'e3', name: 'Attire & Tailoring', amount: 60000, paid: false },
+                    { id: 'e4', name: 'Marriage Rings', amount: 30000, paid: false },
+                    { id: 'e5', name: 'Catering (Baseline 125 pax)', amount: 187500, paid: false, isCatering: true },
+                    { id: 'e6', name: 'Floral Arrangements & Décor', amount: 25000, paid: false },
+                    { id: 'e7', name: 'Logistics & Transport', amount: 20000, paid: false }
+                ],
+                highValue: [
+                    { id: 'h1', name: 'Photography & Videography', amount: 60000, paid: false },
+                    { id: 'h2', name: 'Master of Ceremonies (MC)', amount: 15000, paid: false },
+                    { id: 'h3', name: 'Sound & Public Address System', amount: 20000, paid: false },
+                    { id: 'h4', name: 'Wedding Cake', amount: 15000, paid: false }
+                ],
+                optional: [
+                    { id: 'o1', name: 'Stationery & Invitations', amount: 15000, paid: false },
+                    { id: 'o2', name: 'Gifts & Favors', amount: 10000, paid: false },
+                    { id: 'o3', name: 'Photobooth Setup', amount: 10000, paid: false },
+                    { id: 'o4', name: 'Honeymoon (Deferred)', amount: 0, paid: false }
+                ]
+            },
+
+            legalTriggers: [
+                { id: 'l1', title: 'Notice of Marriage (Marriage Act 2014)', desc: '21-day public notice given to Registrar of Marriages within 90-day window', status: 'Pending', icon: 'file-text' },
+                { id: 'l2', title: 'Church Banns Announcement', desc: '3 consecutive Sunday announcements (Catholic / Presbyterian / Anglican protocol)', status: 'Pending', icon: 'church' },
+                { id: 'l3', title: 'Officiating Minister Licence Verification', desc: 'Ensure venue & minister hold active Gazette licensing for solemnization', status: 'Verified', icon: 'award' },
+                { id: 'l4', title: '7-Day Post-Marriage Return', desc: 'File signed certificate duplicate to Registrar within 7 days post-event', status: 'Scheduled', icon: 'check-square' }
+            ],
+
+            risks: [
+                { title: 'Weather & Rain Protection', solution: 'Marquee tent side-walls + covered walkways contracted.', level: 'Low' },
+                { title: 'Logistics / Transport Delay', solution: 'Designated lead vehicle driver + buffer window of 45 mins.', level: 'Medium' },
+                { title: 'Power Outage Risks', solution: 'Venue silent 15kVA generator test & automatic changeover.', level: 'Low' },
+                { title: 'Photography Hardware Failure', solution: 'Dual-card redundancy + second shooter independent kit.', level: 'Low' }
+            ],
+
+            decisions: [
+                { date: '2026-10-12', topic: 'Guest Ceiling Cap', choice: 'Strict cap at 125 guests to preserve intimacy and caterer quality.' },
+                { date: '2026-11-01', topic: 'Venue Selection', choice: 'Confirmed church sanctuary with adjacent garden reception.' }
+            ],
+
+            moneyDateLogs: [
+                { 
+                    id: 'md1', 
+                    date: '2026-11-01', 
+                    wins: 'Maintained 10% tithe commitment & funded emergency reserve.', 
+                    hard: 'Slight impulse spend on dining out mid-week.', 
+                    decisions: 'Agreed to automate SACCO deposits directly on payday.',
+                    gratitude: 'Grateful for shared clarity on our May 2027 vision.' 
+                }
+            ]
+        };
+
+        let appState = JSON.parse(localStorage.getItem('KAL_NGUN_APP_STATE')) || DEFAULT_STATE;
+
+        // SAVE STATE
+        function saveState() {
+            localStorage.setItem('KAL_NGUN_APP_STATE', JSON.stringify(appState));
+            renderAll();
+        }
+
+        // RESET TO DEFAULTS
+        function resetToDefaults() {
+            if (confirm("Reset application to initial baseline defaults? Local edits will be restored to template.")) {
+                appState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+                saveState();
+            }
+        }
+
+        // TAB SWITCHER
+        function switchTab(tab) {
+            const controlView = document.getElementById('controlRoomView');
+            const wealthView = document.getElementById('wealthTrackView');
+            const btnControl = document.getElementById('btnTabControl');
+            const btnWealth = document.getElementById('btnTabWealth');
+
+            if (tab === 'control') {
+                controlView.classList.remove('hidden');
+                wealthView.classList.add('hidden');
+                btnControl.className = "flex flex-col items-center space-y-1 text-bronze touch-active transition-colors";
+                btnWealth.className = "flex flex-col items-center space-y-1 text-gray-400 hover:text-alabaster touch-active transition-colors";
+            } else {
+                controlView.classList.add('hidden');
+                wealthView.classList.remove('hidden');
+                btnControl.className = "flex flex-col items-center space-y-1 text-gray-400 hover:text-alabaster touch-active transition-colors";
+                btnWealth.className = "flex flex-col items-center space-y-1 text-sage touch-active transition-colors";
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // COUNTDOWN CALCULATOR
+        function updateCountdown() {
+            const target = new Date(appState.weddingDate).getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('countdownDays').innerText = days > 0 ? days : '0';
+        }
+
+        // CATERING SCALER CALCULATOR
+        function updateCateringCalc(val) {
+            appState.guestCeiling = parseInt(val);
+            const cateringCost = appState.guestCeiling * appState.cateringRate;
+            
+            // update catering item inside budget
+            const item = appState.budgetArchitecture.essential.find(i => i.isCatering);
+            if (item) {
+                item.amount = cateringCost;
+                item.name = `Catering Baseline (${val} pax)`;
+            }
+
+            document.getElementById('guestCountVal').innerText = `${val} Guests`;
+            document.getElementById('calcCateringTotal').innerText = `${cateringCost.toLocaleString()} KES`;
+            saveState();
+        }
+
+        // TOGGLE ITEM PAID
+        function togglePaid(tier, id) {
+            const list = appState.budgetArchitecture[tier];
+            const item = list.find(i => i.id === id);
+            if (item) {
+                item.paid = !item.paid;
+                saveState();
+            }
+        }
+
+        // RENDER BUDGET ITEMS
+        function renderBudgetTier(containerId, items, tierName) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            let tierTotal = 0;
+            items.forEach(item => {
+                tierTotal += item.amount;
+                const div = document.createElement('div');
+                div.className = "flex items-center justify-between p-2.5 rounded-xl bg-charcoal/40 hover:bg-charcoal/80 transition-colors border border-white/5";
+                div.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <button onclick="togglePaid('${tierName}', '${item.id}')" class="w-5 h-5 rounded-md border ${item.paid ? 'bg-bronze border-bronze text-ink' : 'border-gray-500'} flex items-center justify-center touch-active">
+                            ${item.paid ? '<i data-lucide="check" class="w-3.5 h-3.5"></i>' : ''}
+                        </button>
+                        <span class="text-xs ${item.paid ? 'line-through text-gray-500' : 'text-alabaster'}">${item.name}</span>
+                    </div>
+                    <span class="text-xs font-serif ${item.paid ? 'text-gray-500' : 'text-bronze'}">${item.amount.toLocaleString()} KES</span>
+                `;
+                container.appendChild(div);
+            });
+            return tierTotal;
+        }
+
+        // RENDER LEGAL & RISKS
+        function renderLegalAndRisks() {
+            // Legal
+            const legalContainer = document.getElementById('legalTriggersList');
+            legalContainer.innerHTML = '';
+            appState.legalTriggers.forEach(item => {
+                const div = document.createElement('div');
+                div.className = "p-3 rounded-xl bg-charcoal/50 border border-white/5 flex items-start space-x-3";
+                div.innerHTML = `
+                    <div class="p-2 rounded-lg bg-bronzeSoft text-bronze mt-0.5">
+                        <i data-lucide="${item.icon}" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center">
+                            <h5 class="text-xs font-medium text-alabaster">${item.title}</h5>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-bronze">${item.status}</span>
+                        </div>
+                        <p class="text-[11px] text-gray-400 mt-1">${item.desc}</p>
+                    </div>
+                `;
+                legalContainer.appendChild(div);
+            });
+
+            // Risks
+            const riskContainer = document.getElementById('riskGrid');
+            riskContainer.innerHTML = '';
+            appState.risks.forEach(risk => {
+                const div = document.createElement('div');
+                div.className = "p-3 rounded-xl bg-charcoal/40 border border-white/5 space-y-1";
+                div.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-medium text-alabaster">${risk.title}</span>
+                        <span class="text-[9px] uppercase tracking-wider px-2 py-0.5 rounded ${risk.level === 'Low' ? 'bg-sageSoft text-sage' : 'bg-bronzeSoft text-bronze'}">${risk.level} Risk</span>
+                    </div>
+                    <p class="text-[11px] text-gray-400">${risk.solution}</p>
+                `;
+                riskContainer.appendChild(div);
+            });
+
+            // Decisions
+            const decisionContainer = document.getElementById('decisionLogList');
+            decisionContainer.innerHTML = '';
+            appState.decisions.forEach(d => {
+                const div = document.createElement('div');
+                div.className = "p-3 rounded-xl bg-charcoal/30 border border-white/5 flex justify-between items-start";
+                div.innerHTML = `
+                    <div>
+                        <span class="text-[10px] text-gray-500 block">${d.date}</span>
+                        <h5 class="text-xs font-medium text-alabaster mt-0.5">${d.topic}</h5>
+                        <p class="text-[11px] text-gray-400 mt-0.5">${d.choice}</p>
+                    </div>
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-sage"></i>
+                `;
+                decisionContainer.appendChild(div);
+            });
+        }
+
+        // ADD DECISION PROMPT
+        function addDecisionPrompt() {
+            const topic = prompt("Enter Decision Subject/Topic:");
+            if (!topic) return;
+            const choice = prompt("Enter Consensus Decision:");
+            if (!choice) return;
+
+            const newDec = {
+                date: new Date().toISOString().split('T')[0],
+                topic: topic,
+                choice: choice
+            };
+
+            appState.decisions.unshift(newDec);
+            saveState();
+        }
+
+        // WEALTH TRACK WATERFALL CALCULATOR
+        function recalculateWaterfall(grossIncome) {
+            appState.monthlyIncome = parseFloat(grossIncome) || 0;
+            const income = appState.monthlyIncome;
+
+            const steps = [
+                { name: '1. Giving First (Tithe)', pct: 10, color: 'text-bronze', bg: 'bg-bronze' },
+                { name: '2. Essentials & Bills Ceiling', pct: 50, color: 'text-alabaster', bg: 'bg-alabaster' },
+                { name: '3. Emergency Fund (3-6 mo Target)', pct: 10, color: 'text-sage', bg: 'bg-sage' },
+                { name: '4. Debt Snowball / Avalanche', pct: 10, color: 'text-gray-300', bg: 'bg-gray-400' },
+                { name: '5. Wealth Investments (MMF/SACCO/NSE)', pct: 12, color: 'text-sage', bg: 'bg-sage' },
+                { name: '6. Business & Reinvestment Reserve', pct: 8, color: 'text-bronze', bg: 'bg-bronze' },
+                { name: '7. Personal & Self-Care (Split Equally)', pct: 6, color: 'text-gray-300', bg: 'bg-gray-300' },
+                { name: '8. Guilt-Free Joy & Exploration', pct: 4, color: 'text-gray-400', bg: 'bg-gray-500' }
+            ];
+
+            const container = document.getElementById('waterfallList');
+            container.innerHTML = '';
+
+            let totalAllocated = 0;
+
+            steps.forEach(s => {
+                const amt = (income * s.pct) / 100;
+                totalAllocated += amt;
+
+                const div = document.createElement('div');
+                div.className = "space-y-1.5";
+                div.innerHTML = `
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-300">${s.name} <span class="text-[10px] text-gray-500">(${s.pct}%)</span></span>
+                        <span class="font-serif ${s.color}">${amt.toLocaleString()} KES</span>
+                    </div>
+                    <div class="w-full h-1.5 bg-charcoal rounded-full overflow-hidden">
+                        <div class="h-full ${s.bg}" style="width: ${s.pct}%"></div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            // Update Wealth KPIs
+            document.getElementById('kpiGiving').innerText = `${((income * 0.1)).toLocaleString()} KES`;
+            document.getElementById('kpiInvestment').innerText = `${((income * 0.12)).toLocaleString()} KES`;
+            
+            // Estimated Net Worth logic (simulated baseline accumulation engine)
+            const netWorthEst = (income * 12 * 1.8);
+            document.getElementById('netWorthDisplay').innerText = `${Math.round(netWorthEst).toLocaleString()} KES`;
+        }
+
+        // BUSINESS P&L SPLIT CALCULATOR
+        function recalculateBizSplit(revVal) {
+            appState.bizRevenue = parseFloat(revVal) || 0;
+            const rev = appState.bizRevenue;
+
+            const splits = [
+                { title: 'Owner Draw (40%)', amt: rev * 0.4, color: 'text-bronze' },
+                { title: 'Tax Reserve (20%)', amt: rev * 0.2, color: 'text-gray-300' },
+                { title: 'Reinvestment (30%)', amt: rev * 0.3, color: 'text-sage' },
+                { title: 'Biz Emergency (10%)', amt: rev * 0.1, color: 'text-alabaster' }
+            ];
+
+            const grid = document.getElementById('bizSplitGrid');
+            grid.innerHTML = '';
+
+            splits.forEach(s => {
+                const div = document.createElement('div');
+                div.className = "bg-charcoal/50 rounded-xl p-3 border border-white/5 space-y-1";
+                div.innerHTML = `
+                    <span class="text-[10px] text-gray-400 uppercase tracking-wider block">${s.title}</span>
+                    <span class="text-sm font-serif ${s.color} block">${s.amt.toLocaleString()} KES</span>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        // RENDER MONEY DATE LOGS
+        function renderMoneyDateLogs() {
+            const container = document.getElementById('moneyDateLogs');
+            container.innerHTML = '';
+
+            if (appState.moneyDateLogs.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-500 italic text-center py-4">No Money Date entries logged yet.</p>`;
+                return;
+            }
+
+            appState.moneyDateLogs.forEach(log => {
+                const div = document.createElement('div');
+                div.className = "p-4 rounded-xl bg-charcoal/40 border border-white/5 space-y-2";
+                div.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                        <span class="text-xs font-serif text-bronze">${log.date}</span>
+                        <span class="text-[10px] text-sage bg-sageSoft px-2 py-0.5 rounded-full">Ritual Complete</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                        <div>
+                            <span class="text-[10px] text-gray-400 block uppercase">Weekly Wins:</span>
+                            <p class="text-gray-200 mt-0.5">${log.wins}</p>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-gray-400 block uppercase">Friction / Hard:</span>
+                            <p class="text-gray-200 mt-0.5">${log.hard}</p>
+                        </div>
+                    </div>
+                    ${log.gratitude ? `
+                    <div class="pt-2 border-t border-white/5 text-[11px] italic text-bronze/80">
+                        " ${log.gratitude} "
+                    </div>
+                    ` : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // MONEY DATE MODAL CONTROLS
+        function openMoneyDateModal() {
+            document.getElementById('mdDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('moneyDateModal').classList.remove('hidden');
+        }
+
+        function closeMoneyDateModal() {
+            document.getElementById('moneyDateModal').classList.add('hidden');
+        }
+
+        function saveMoneyDate(e) {
+            e.preventDefault();
+            const newLog = {
+                id: 'md_' + Date.now(),
+                date: document.getElementById('mdDate').value,
+                wins: document.getElementById('mdWins').value,
+                hard: document.getElementById('mdHard').value,
+                decisions: document.getElementById('mdDecisions').value,
+                gratitude: document.getElementById('mdGratitude').value
+            };
+
+            appState.moneyDateLogs.unshift(newLog);
+            saveState();
+            closeMoneyDateModal();
+            document.getElementById('moneyDateForm').reset();
+        }
+
+        // DATA EXPORT / IMPORT MODAL
+        function toggleDataModal(show) {
+            const modal = document.getElementById('dataModal');
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        function exportDataJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appState, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `Kalaja_Ngunjiri_Sanctuary_Backup_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function importDataJSON(event) {
+            const fileReader = new FileReader();
+            fileReader.onload = function (e) {
+                try {
+                    const importedState = JSON.parse(e.target.result);
+                    if (importedState && importedState.budgetArchitecture) {
+                        appState = importedState;
+                        saveState();
+                        alert("Data Snapshot imported successfully!");
+                        toggleDataModal(false);
+                    } else {
+                        alert("Invalid backup file format.");
+                    }
+                } catch (err) {
+                    alert("Error parsing JSON file.");
+                }
+            };
+            fileReader.readAsText(event.target.files[0]);
+        }
+
+        // MASTER RENDER
+        function renderAll() {
+            updateCountdown();
+            
+            // Render Tiers
+            const essentialTot = renderBudgetTier('essentialItemsList', appState.budgetArchitecture.essential, 'essential');
+            const highValTot = renderBudgetTier('highValueItemsList', appState.budgetArchitecture.highValue, 'highValue');
+            const optionalTot = renderBudgetTier('optionalItemsList', appState.budgetArchitecture.optional, 'optional');
+
+            document.getElementById('tierEssentialTotal').innerText = `${essentialTot.toLocaleString()} KES`;
+            document.getElementById('tierHighValueTotal').innerText = `${highValTot.toLocaleString()} KES`;
+            document.getElementById('tierOptionalTotal').innerText = `${optionalTot.toLocaleString()} KES`;
+
+            const totalAllocated = essentialTot + highValTot + optionalTot;
+            document.getElementById('kpiAllocated').innerText = `${totalAllocated.toLocaleString()} KES`;
+
+            // Legal & Risks
+            renderLegalAndRisks();
+
+            // Waterfall & Biz Split
+            recalculateWaterfall(appState.monthlyIncome);
+            recalculateBizSplit(appState.bizRevenue);
+
+            // Money Date Logs
+            renderMoneyDateLogs();
+
+            // Re-initialize Lucide Icons after DOM mutation
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+
+        // INITIALIZE ON LOAD
+        window.onload = function() {
+            renderAll();
+        };
+    </script>
+</body>
+</html>
